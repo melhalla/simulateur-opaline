@@ -103,8 +103,52 @@ def enregistrer_donnees(nom, prenom, email):
             chiffre_affaires, cout_total, profit
         ])
 
-# 📌 Capture des informations utilisateur avec **loader visuel**
-st.markdown("<h2 style='margin-top: 40px;'>📩 Recevez votre analyse</h2>", unsafe_allow_html=True)
+# 📌 Fonction pour envoyer un email
+def envoyer_email(nom, prenom, destinataire):
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587
+    sender_email = "blanchisserie.opaline@gmail.com"
+    sender_password = "ezylyxtieibbytgc"
+
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = destinataire
+    msg['Subject'] = "Opaline - Opportunité de Franchise"
+
+    body = f"""
+    <html>
+    <body style="font-family: Arial, sans-serif; color: #333;">
+        <div style="max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+            <img src="https://quozyli.com/wp-content/uploads/2025/03/Group-28.png" width="150" alt="Opaline" style="display: block; margin: auto;">
+            <h2 style="text-align: center; color: #55833D;">Opaline - Une Opportunité Unique</h2>
+            <p>Bonjour <strong>{nom} {prenom}</strong>,</p>
+            <p>Vous avez réalisé une simulation avec notre outil Opaline et voici votre estimation :</p>
+            <ul>
+                <li><strong>Chiffre d’affaires mensuel estimé :</strong> {chiffre_affaires:.2f} €</li>
+                <li><strong>Coût total estimé :</strong> {cout_total:.2f} €</li>
+                <li><strong>Bénéfice net estimé :</strong> {profit:.2f} €</li>
+            </ul>
+            <p>Nous vous enverrons très bientôt un **business plan détaillé**.</p>
+            <p>Si vous êtes intéressé, nous pouvons convenir d’un **rendez-vous** pour discuter de votre projet.</p>
+            <p><strong>📧 Contactez-nous :</strong> contact@blanchisserie-opaline.com</p>
+        </div>
+    </body>
+    </html>
+    """
+
+    msg.attach(MIMEText(body, 'html'))
+
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(sender_email, sender_password)
+        server.sendmail(sender_email, destinataire, msg.as_string())
+        server.quit()
+        return True
+    except Exception as e:
+        return False
+
+# 📌 Capture des informations utilisateur avec loader
 nom = st.text_input("Nom")
 prenom = st.text_input("Prénom")
 email = st.text_input("Email")
@@ -112,13 +156,10 @@ email = st.text_input("Email")
 if st.button("📨 Envoyer mon analyse"):
     if email and nom and prenom:
         with st.spinner("📩 Traitement en cours..."):
-            progress_bar = st.progress(0)
-            for percent in range(100):
-                time.sleep(0.02)
-                progress_bar.progress(percent + 1)
-
             enregistrer_donnees(nom, prenom, email)
+            success = envoyer_email(nom, prenom, email)
 
-        st.success(f"📩 Un email a été envoyé à {email} avec votre simulation.")
+        if success:
+            st.success(f"📩 Un email a été envoyé à {email} avec votre simulation.")
     else:
         st.warning("Veuillez remplir tous les champs.")
