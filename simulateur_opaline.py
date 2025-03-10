@@ -126,6 +126,17 @@ def enregistrer_donnees(nom, prenom, email):
     if email in existing_emails:
         return
 
+import json
+
+# 📌 Vérification avant insertion dans Google Sheets
+test_data = [
+    datetime.datetime.today().strftime('%Y-%m-%d'),
+    nom, prenom, email, clients, kits_1p, kits_2p,
+    chiffre_affaires, cout_total, profit
+]
+
+print("✅ Données envoyées à Google Sheets :", json.dumps(test_data, indent=4))
+
     sheet.append_row([date_aujourdhui, nom, prenom, email, clients, kits_1p, kits_2p, chiffre_affaires, cout_total, profit])
 
 # 📌 Fonction pour envoyer l'email au client
