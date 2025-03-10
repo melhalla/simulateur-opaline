@@ -13,6 +13,15 @@ import time  # Ajout pour le loader visuel
 
 # Récupérer les credentials depuis la variable d'environnement
 creds_json = os.getenv("GOOGLE_SHEETS_CREDS")
+
+if not creds_json:
+    raise ValueError("Erreur : GOOGLE_SHEETS_CREDS n'est pas défini sur Streamlit Cloud !")
+
+try:
+    creds_dict = json.loads(creds_json)
+except json.JSONDecodeError:
+    raise ValueError("Erreur : Les credentials JSON sont mal formatés.")
+
 creds_dict = json.loads(creds_json)
 
 # 📌 Connexion à Google Sheets
@@ -24,6 +33,15 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 # 📌 Charger les credentials depuis Streamlit Cloud Secrets
 creds_json = os.getenv("GOOGLE_SHEETS_CREDS")
+
+if not creds_json:
+    raise ValueError("Erreur : GOOGLE_SHEETS_CREDS n'est pas défini sur Streamlit Cloud !")
+
+try:
+    creds_dict = json.loads(creds_json)
+except json.JSONDecodeError:
+    raise ValueError("Erreur : Les credentials JSON sont mal formatés.")
+
 creds_dict = json.loads(creds_json)
 
 # 📌 Connexion à Google Sheets
