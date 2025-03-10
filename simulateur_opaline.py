@@ -98,6 +98,16 @@ def enregistrer_donnees(nom, prenom, email):
     
     existing_emails = sheet.col_values(4)
     if email not in existing_emails:
+
+# 📌 Vérification avant insertion dans Google Sheets
+test_data = [
+    datetime.datetime.today().strftime('%Y-%m-%d'),
+    nom, prenom, email, clients, kits_1p, kits_2p,
+    chiffre_affaires, cout_total, profit
+]
+
+st.write("🔍 Données envoyées à Google Sheets :", json.dumps(test_data, indent=4))
+
         sheet.append_row([
             date_aujourdhui, nom, prenom, email, clients, kits_1p, kits_2p, 
             chiffre_affaires, cout_total, profit
