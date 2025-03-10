@@ -7,11 +7,29 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
 import datetime
+import json
+from oauth2client.service_account import ServiceAccountCredentials
 import time  # Ajout pour le loader visuel
+
+# Récupérer les credentials depuis la variable d'environnement
+creds_json = os.getenv("GOOGLE_SHEETS_CREDS")
+creds_dict = json.loads(creds_json)
 
 # 📌 Connexion à Google Sheets
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("google_sheets_creds.json", scope)
+import json
+import os
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+# 📌 Charger les credentials depuis Streamlit Cloud Secrets
+creds_json = os.getenv("GOOGLE_SHEETS_CREDS")
+creds_dict = json.loads(creds_json)
+
+# 📌 Connexion à Google Sheets
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+client = gspread.authorize(creds)
 client = gspread.authorize(creds)
 
 # 📌 Ouvrir le Google Sheet principal (REMPLACE PAR TON ID)
