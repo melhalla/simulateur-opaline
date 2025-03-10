@@ -141,17 +141,47 @@ def envoyer_email(nom, prenom, destinataire):
     msg['Subject'] = "Opaline - Votre simulation et prochaines étapes"
 
     body = f"""
-    <html>
-    <body style="font-family: Arial, sans-serif; color: #333;">
-        <div style="max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-            <img src="https://quozyli.com/wp-content/uploads/2025/03/Group-28.png" width="150" alt="Opaline" style="display: block; margin: auto;">
-            <h2 style="text-align: center; color: #55833D;">Votre simulation de rentabilité</h2>
-            <p>Bonjour <strong>{nom} {prenom}</strong>,</p>
-            <p>Merci d'avoir utilisé notre simulateur de rentabilité Opaline.</p>
-            <p>Votre analyse est en cours d'envoi...</p>
-        </div>
-    </body>
-    </html>
+<html>
+<body style="font-family: Arial, sans-serif; color: #333;">
+    <div style="max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+        <img src="https://quozyli.com/wp-content/uploads/2025/03/Group-28.png" width="150" alt="Opaline" style="display: block; margin: auto;">
+        <h2 style="text-align: center; color: #55833D;">Opaline - Votre simulation de rentabilité</h2>
+        
+        <p>Bonjour <strong>{nom} {prenom}</strong>,</p>
+        
+        <p>Merci d'avoir utilisé notre simulateur de rentabilité Opaline. Nous sommes ravis de voir votre intérêt pour cette opportunité unique.</p>
+        
+        <p>Voici un aperçu de votre potentiel financier en rejoignant notre réseau :</p>
+        <ul>
+            <li><strong>Chiffre d’affaires mensuel estimé :</strong> {chiffre_affaires:.2f} €</li>
+            <li><strong>Coût total estimé :</strong> {cout_total:.2f} €</li>
+            <li><strong>Bénéfice net estimé :</strong> {profit:.2f} €</li>
+        </ul>
+
+        <p>Opaline, c’est bien plus qu’une simple franchise : c’est une **opportunité clé en main** pour développer votre propre blanchisserie industrielle et générer des revenus récurrents. En tant que franchisé, vous bénéficiez :</p>
+        <ul>
+            <li>✅ D’une solution tout-en-un avec machines et gestion informatisée</li>
+            <li>✅ D’un accompagnement complet pour réussir votre lancement</li>
+            <li>✅ D’un marché en forte croissance grâce aux besoins des conciergeries et hôtelleries</li>
+        </ul>
+
+        <p>Si cette opportunité vous intéresse, nous serions ravis d’échanger avec vous pour approfondir votre projet et répondre à toutes vos questions.</p>
+
+        <p><strong>📅 Nous pouvons convenir d’un rendez-vous pour discuter ensemble.</strong></p>
+
+        <p>Nous vous enverrons également très prochainement un **business plan détaillé**, afin que vous puissiez analyser plus en profondeur les chiffres et le potentiel de votre future blanchisserie.</p>
+
+        <p>📩 <strong>N’hésitez pas à nous contacter dès maintenant pour planifier un échange :</strong></p>
+        <p style="text-align: center;">
+            📧 <a href="mailto:contact@blanchisserie-opaline.com" style="color: #55833D; font-weight: bold;">contact@blanchisserie-opaline.com</a>
+        </p>
+
+        <p>À très bientôt,</p>
+        <p><strong>L’équipe Opaline - La franchise de blanchisserie Airbnb</strong></p>
+    </div>
+</body>
+</html>
+
     """
 
     msg.attach(MIMEText(body, 'html'))
