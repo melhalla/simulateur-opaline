@@ -96,18 +96,7 @@ st.markdown("<hr style='border: 2px solid #55833D;'>", unsafe_allow_html=True)
 def enregistrer_donnees(nom, prenom, email):
     date_aujourdhui = datetime.datetime.today().strftime('%Y-%m-%d')
     
-   
     existing_emails = sheet.col_values(4)
-    
-# 📌 Vérification avant insertion dans Google Sheets
-test_data = [
-    datetime.datetime.today().strftime('%Y-%m-%d'),
-    nom, prenom, email, clients, kits_1p, kits_2p,
-    chiffre_affaires, cout_total, profit
-]
-
-st.write("🔍 Données envoyées à Google Sheets :", json.dumps(test_data, indent=4))
-
     if email not in existing_emails:
         sheet.append_row([
             date_aujourdhui, nom, prenom, email, clients, kits_1p, kits_2p, 
